@@ -1,4 +1,4 @@
 # Simon-Game
 
-Remade a clasic game Simon says.
+Remade the clasic Simon says.
 I used Javascript and Jquery.
