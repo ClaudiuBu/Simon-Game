@@ -15,12 +15,14 @@ $(document).keypress(function (e) {
 
     if ((e.key == "A" || e.key == "a") && newGame == true) {
         gameStart();
+
     }
     else {
 
     }
 });
 function randAsignSquare() {
+    console.log("Am intrat in functia de randomizare.");
     return Math.floor(Math.random() * 4 + 1);
 }
 function paternClick(arg) {
@@ -33,6 +35,8 @@ function paternClick(arg) {
                 width: "300px",
                 height: "300px",
             }, 350);
+            var audio = new Audio('sounds/green.mp3');
+            audio.play();
             break;
         case 2:
             $(".square-2").animate({
@@ -42,6 +46,8 @@ function paternClick(arg) {
                 width: "300px",
                 height: "300px",
             }, 350);
+            var audio = new Audio('sounds/red.mp3');
+            audio.play();
             break;
 
         case 3:
@@ -52,6 +58,8 @@ function paternClick(arg) {
                 width: "300px",
                 height: "300px",
             }, 350);
+            var audio = new Audio('sounds/yellow.mp3');
+            audio.play();
             break;
         case 4:
             $(".square-4").animate({
@@ -61,10 +69,13 @@ function paternClick(arg) {
                 width: "300px",
                 height: "300px",
             }, 500);
+            var audio = new Audio('sounds/blue.mp3');
+            audio.play();
             break;
     }
 }
 function makeArray() {
+    console.log("Am intrat in functia de array");
     randSquare = randAsignSquare();
     squareOrder.push(randSquare);
     paternClick(randSquare);
@@ -75,12 +86,18 @@ function makeArray() {
 }
 
 function gameLost(){
-
+    $("h1").text("Lost the game. Press A to start a new game.");
+    var audio = new Audio('sounds/wrong.mp3');
+    audio.play();
+    //reintializare variabile;
+    newGame = true;
+    location.reload();
 }
 function nextLevel(){
+    console.log("Am trecut la urmatorul nivel");
     if(squareOrder.length==number){
-        setTimeout(makeArray, 1000);
         number = 0;
+        setTimeout(makeArray, 1000);
         level++;
         setLevel(level);
     }
@@ -93,6 +110,7 @@ function setLevel(arg){
     setTimeout(local,1000);
 }
 function gameLogic(arg){
+    console.log("Aici decid daca ai pierdut sau castigat");
     if (squareOrder[number] == arg) {
         console.log("Ar trebui sa ma maresc2");
         paternClick(squareOrder[number]);
@@ -100,12 +118,14 @@ function gameLogic(arg){
         nextLevel();
     }
     else {
-       // gameLost();
         console.log("Game lost");
+        gameLost(event);
+        
     }
 }
 
 function gameStart() {
+    newGame = false;
     $("h1").text("Level 1");
     setTimeout(makeArray, 500);
     console.log("ajjung in gameStar");
